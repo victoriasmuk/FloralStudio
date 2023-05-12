@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>the fl❁ral studio | Get Estimate</title>
+</head>
+<body style="font-family: optima, sans-serif;">
+    <nav>
+        <a href="/home">
+            <h1 style="font-family: optima, sans-serif;">the fl❁ral studio</h1>
+        </a>
+    </nav>
+    <ul class="nav nav-fill">
+        <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+            <a href="/get_estimate" class="nav-link" style="text-decoration: underline; color: #9AA087;">Get Estimate</a>
+        </li>
+        <li class="nav-item">
+            <a href="/about_us" class="nav-link">About Us</a>
+        </li>
+
+        {% if user == 0 %}
+        <li class="nav-item">
+            <a href="/login" class="nav-link">
+                <img src="../static/images/account_icon.png" alt="acount icon" style="height: 20px;">
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="/account/{{user}}" class="nav-link">
+                <img src="../static/images/account_icon.png" alt="acount icon" style="height: 20px;">
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+
+    <div class="card-body" style="display: flex; justify-content: center;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: brown;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    </div>
+
+    <!-- SHOW EXAMPLES OF SIZES -->
+    <div class="card" style="padding-top: 30px;">
+        <div class="card-body">
+            <div class="container-md">
+                <div style="display: flex; justify-content: space-between; font-size: small; flex-wrap: wrap;">
+                    <!-- FLOWER SIZES CARDS -->
+                    <div class="image">
+                        <img src="../static/images/sizes/xs.jpeg" alt="xsmall bouquet">
+                        <div class="card-body">
+                            <p class="card-title">X-SMALL</p>
+                            <p class="card-text">16 stems</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/sizes/sm.jpeg" alt="small bouquet">
+                        <div class="card-body">
+                            <p class="card-title">SMALL</p>
+                            <p class="card-text">25 stems</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/sizes/md.jpeg" alt="medium bouquet">
+                        <div class="card-body">
+                            <p class="card-title">MEDIUM</p>
+                            <p class="card-text">45 stems</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/sizes/lg.jpeg" alt="large bouquet">
+                        <div class="card-body">
+                            <p class="card-title">LARGE</p>
+                            <p class="card-text">60 stems</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/sizes/xl.jpeg" alt="xlarge bouquet">
+                        <div class="card-body">
+                            <p class="card-title">X-LARGE</p>
+                            <p class="card-text">80 stems</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/sizes/xxl.jpeg" alt="xxlarge bouquet">
+                        <div class="card-body">
+                            <p class="card-title">XX-LARGE</p>
+                            <p class="card-text">100 stems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 30px; flex-wrap: wrap;">
+        <div class="row">
+            <div class="col-sm-5 col-md-6">
+                <!-- UPLOAD PHOTO AND SELECT SIZE-->
+                {% if image == 0 %}
+                <h5>Select the size of the bouquet you're interested in and upload a photo with flowers you want your bouquet to include</h5>
+                <hr>
+                    <form method="post" action="/upload_photo" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="{{user}}">
+                    <div class="form-floating">
+                        <select name='size' class="form-select">
+                            <option value="X-Small" selected>X-Small</option>
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                            <option value="X-Large">X-Large</option>
+                            <option value="XX-Large">XX-Large</option>
+                        </select>
+                        <label>Bouquet Size</label>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <!-- <form method="post" action="/upload_photo" enctype="multipart/form-data"> -->
+                        <label class="form-text">Upload photo of bouquet</label>
+                        <div class="input-group">
+                            <input name='image' type="file" class="form-control" accept="image/*" required>
+                            <input type="submit" value="Upload" class="btn btn-outline-dark">
+                        </div> 
+                        </form>
+                    </div>
+                    {% endif %}
+                    
+            </div>
+            <hr>
+            <div style="display: flex; justify-content: space-around; padding-top: 10px; flex-wrap: wrap;">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                    <div class="uploaded_photo">
+                    {% if image == 0 %}
+                    {% else %}
+                        <img src="../static/images/uploaded_files/{{image}}" alt="uploaded photo" style="width: 300px; padding-right: 30px;">
+                    </div>
+                    <div>
+                        <p class="fw-bold">Flowers identified in the photo uploaded:</p> 
+                        <div class="api_results">
+                            <ul class="list-group list-group-flush">
+                                <p style="text-decoration: underline;">Scientific Name:</p>
+                                {% for name in names %}
+                                    <li class="list-group-item">{{name}}</li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <p style="text-decoration: underline;">Common names:</p> 
+                                {% for name in common_names %}
+                                    <li class="list-group-item">{{name.capitalize()}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% if session['cost'] != session['cost']%}
+
+                {% else %}
+                <div style="display: flex; flex-direction: column; align-items: center; border-left: solid #BCBDBE 1px;">
+                    <h4 style="text-align: center; padding: 20px 0 20px 20px;">
+                        Your cost estimate for a
+                        <br>{{session.size}} bouquet with this variety of flowers is
+                        <br>${{session.cost}}!
+                    </h4>
+                    <a href="/clear_estimate" class="btn btn-dark">get another estimate →</a>
+                </div>
+                {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

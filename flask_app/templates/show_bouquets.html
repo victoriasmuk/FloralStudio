@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>the fl❁ral studio | My Account</title>
+</head>
+<body style="font-family: optima, sans-serif;">
+    <nav>
+        <a href="/home">
+            <h1 style="font-family: optima, sans-serif;">the fl❁ral studio</h1>
+        </a>
+    </nav>
+    <ul class="nav nav-fill">
+        <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+            <a href="/get_estimate" class="nav-link">Get Estimate</a>
+        </li>
+        <li class="nav-item">
+            <a href="/about_us" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+            <a href="/account/{{user.id}}" class="nav-link" style="text-decoration: underline; color: #9AA087;">
+                <img src="../static/images/account_icon.png" alt="acount icon" style="height: 20px;">
+            </a>
+        </li>
+    </ul>
+
+    <div class="card-body" style="display: flex; justify-content: center;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: brown;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    </div>
+
+    <div class="card" style="padding-top: 30px;">
+        <div class="card-body">
+            <div class="container-md">
+                <div class="row justify-content-center">
+                    <nav style="padding: 0;">
+                        <h4>Account</h4>
+                    </nav>
+                    <ul class="nav nav-pills" style="font-size: small; display: flex; justify-content: center; padding-bottom: 30px;">
+                        <li class="nav-item">
+                            <a href="/account/{{user.id}}" class="nav-link">ACCOUNT INFORMATION</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/show_bouquets/{{user.id}}" class="nav-link" style="text-decoration: underline; color: #9AA087;">MY BOUQUETS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link"> SIGN OUT</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <table class="table table-striped table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Uploaded Photo</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Price Estimate</th>
+                                <th scope="col">Size</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                        {% for bouquet in bouquets %}
+                            <tr class="align-middle">
+                                <td>
+                                    <img src="../static/images/uploaded_files/{{bouquet.uploaded_photo}}" alt="uploaded_photo" style="width: 200px;">
+                                </td>
+                                <td>{{bouquet.created_at.strftime('%m/%d/%Y')}}</td>
+                                <td> ${{bouquet.price}} </td>
+                                <td> {{bouquet.size}} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>                        

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>the fl❁ral studio | About Us</title>
+</head>
+
+<body style="font-family: optima, sans-serif;">
+    <nav>
+        <a href="/home">
+            <h1 style="font-family: optima, sans-serif;">the fl❁ral studio</h1>
+        </a>
+    </nav>
+    <ul class="nav nav-fill">
+        <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+            <a href="/get_estimate" class="nav-link">Get Estimate</a>
+        </li>
+        <li class="nav-item">
+            <a href="/about_us" class="nav-link" style="text-decoration: underline; color: #9AA087;">About Us</a>
+        </li>
+
+        {% if user == 0 %}
+        <li class="nav-item">
+            <a href="/login" class="nav-link">
+                <img src="../static/images/account_icon.png" alt="acount icon" style="height: 20px;">
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="/account/{{user}}" class="nav-link">
+                <img src="../static/images/account_icon.png" alt="acount icon" style="height: 20px;">
+            </a>
+        </li>
+        {% endif %}
+
+
+    </ul>
+    <div class="card" style="padding-top: 30px;">
+        <div class="card-body">
+            <div class="container-md">
+                <div class="row justify-content-center">
+                    <div class="col-9">
+                        <h4 style="text-align: center;">ABOUT US</h4>
+                        <hr>
+                        <div style="display: flex; justify-content: space-evenly;">
+                            <div class="card" style="width: 15rem; padding: 0;">
+                                <img src="../static/images/vsmuk.jpeg" alt="vsmuk" style="width:15rem;" class="card-img-top">
+                                <div class="card-body">
+                                    <p class="card-header">Victoria Smuk</p>
+                                    <p class="card-text">Creator</p>
+                                </div>
+                            </div>
+                            <div style="border-left: solid 1px #BCBDBE; padding-left: 0;"></div>
+                            <div style="width: 15rem;">
+                                <p>
+                                    This app was created to decrease the probability of being overcharged when purchasing a floral bouquet.
+                                    <hr>
+                                    Using this estimate calculator will increase your knowledge & awareness of floral prices.
+                                    <hr>
+                                </p>
+                                <p style="font-size: small;">
+                                    DISCLAIMER:
+                                    <br>
+                                    The calculated estimate does not include the cost of labor. 
+                                    Floral prices fluctuate depending on the season & the price given is simply an estimate and may be under/over estimating. 
+                                </p>
+                                <a href="/show_flowers">See the specific flower details →</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
